@@ -32,9 +32,10 @@ function cpa(attack_round, model_type, cipher_type, trace_data)
   poi = Int[]
   for i in 1:num_unit
     push!(keyGraphs, findmax(ρ[i,:,:],2)[1])
-    push!(poi, findmax(findmax(ρ[i,:,:],2)[1])[2])
     predict_k = findmax(findmax(ρ[i,:,:],2)[1])[2]-1
-    #println(predict_k)
+    #now the correct key bytes has been found, calculating the instants of time
+    #where the actual event occured for each byte
+    push!(poi,findmax(ρ[i,predict_k+1,:])[2])
     recovered_key = join([recovered_key,hex(predict_k,div(unit_size,4))])
   end
   res = cpaResults(recovered_key, ρ, keyGraphs, poi)
