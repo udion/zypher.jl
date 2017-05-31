@@ -5,6 +5,7 @@ type cpaResults
   ρ::Array
   keyGraphs::Array
   pointOfinterests::Array #the time instants at which the activity for the byte happened
+  res_dir::String
 end
 
 function cpa(attack_round, model_type, cipher_type, trace_data)
@@ -38,5 +39,5 @@ function cpa(attack_round, model_type, cipher_type, trace_data)
     push!(poi,findmax(ρ[i,predict_k+1,:])[2])
     recovered_key = join([recovered_key,hex(predict_k,div(unit_size,4))])
   end
-  res = cpaResults(recovered_key, ρ, keyGraphs, poi)
+  res = cpaResults(recovered_key, ρ, keyGraphs, poi, trace_data.res_dir)
 end
