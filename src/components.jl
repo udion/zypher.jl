@@ -1,3 +1,4 @@
+include("utilities.jl")
 global const S_box_AES = [
 0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
 0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0,
@@ -37,23 +38,12 @@ global const invS_box_AES = [
 ];
 
 #add more S-P components here if needed
+global HW = Dict()
 
-#look up table for the HW values of a byte
-function hw_look_up_maker(binstr)
-    hw = 0
-    for i in 1:length(binstr)
-        if binstr[i] == '1'
-            hw = hw+1
-        end
-    end
-    hw
-end
-HW8 = Dict()
-for i in 0:255
-  HW8[i] = hw_look_up_maker(bin(i,8))
-end
+global S_boxes = Dict()
+S_boxes["AES"] = S_box_AES
+#add more as more components are added
 
-HW4 = Dict()
-for i in 0:15
-  HW4 = hw_look_up_maker(bin(i,4))
-end
+global invS_boxes = Dict()
+invS_boxes["AES"] = invS_box_AES
+#add more as more components are added
