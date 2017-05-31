@@ -14,6 +14,7 @@ function display_cpa(results)
     xlabel("key byte values")
     ylabel("maximum correlation values")
     title("max correlation vs key values for unit$(i)")
+    plt.savefig(join([results.res_dir, "/max_cc_keyvals_for_byte$(i)"]))
   end
   #can add more functions to manipulate ρ and show details
 end
