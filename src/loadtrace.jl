@@ -7,9 +7,20 @@ type SPNdata
   plaintexts::Array
   ciphertexts::Array
   traces::Array
+  res_dir::String
 end
 
 function loadSPNtrace(path_to_csvtraces, unit_size)
+
+  #creating directory to store the results
+  part_names = split(path_to_csvtraces,"/")
+  path_to_resdir = ""
+  for a in part_names[1:end-1]
+    path_to_resdir = join([path_to_resdir, a, "/"])
+  end
+  path_to_resdir = join([path_to_resdir, part_names[end], "results"])
+  mkdir(path_to_resdir)
+
   pct = readtable(path_to_csvtraces)
 
   plaintexts = pct[1]; #all the plaintexts are suppose to be of the same length and in hex string
@@ -22,6 +33,6 @@ function loadSPNtrace(path_to_csvtraces, unit_size)
     HW[i] = hw_look_up_maker(bin(i,unit_size))
   end
 
-  x = SPNdata(unit_size,n_unit,plaintexts,ciphertexts,traces)
+  x = SPNdata(unit_size,n_unit,plaintexts,ciphertexts,traces,path_to_resdir)
 end
 #add more loading function for other types of cipher if needed
