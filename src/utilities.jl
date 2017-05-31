@@ -26,21 +26,4 @@ function invSlayer(matrixstate)
     end
     mat
 end
-
-#ρ is common to both the first and last round of CPA and maybe in other techniques
-#function ρ_maker(V)
-#  n_unit = div(len_pt,div(guess_unit,4))
-#  n_k_possible = 2^guess_unit
-#
-#  ρ = zeros(n_unit, n_k_possible, n_trace)
-#
-#  for i in 1:n_unit
-#    for keyguess in 0:n_k_possible-1
-#      for t in 1:n_trace
-#        ρ[i,keyguess+1,t] = abs(cor(V[i,:,keyguess+1],traces[:,t]))
-#      end
-#    end
-#  end
-#  ρ
-#end
 #########################################################
