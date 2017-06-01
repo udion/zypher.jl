@@ -33,7 +33,10 @@ The following output is generated also a director with the name of the trace fil
 The recovered key is: 000102030405060708090a0b0c0d0e0f
 ```
 (16 graphs will appear on the screen which are saved in the newly created director, some of the sample graphs are)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/max_cc_keyvals_for_byte7.png)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/max_cc_keyvals_for_byte9.png)
 ![alt text](https://github.com/udion/zypher.jl/blob/master/images/max_cc_keyvals_for_byte13.png)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/max_cc_keyvals_for_byte16.png)
 
 
 
