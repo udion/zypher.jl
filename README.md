@@ -11,12 +11,28 @@ The structure is designed in an intuitive manner which may be extended and custo
 ## API
 Currently the follwoing methods are provided in the package, (users can extend this list to include their own methods):
 * <code>loadSPNtrace("\<path_to_file\>", unitSize)</code> : This method is to load the traces corresponding to cipher which is a S-P Network like PRESENT, AES, etc. the unitSize refers to the number of bits which are to be calculated/guessed at a time. This method returns a *type* SPNdata which has the necessary information
-* <code>cpa(\<loaded_trace\>)</code> : This method performs cpa on the *type* returned by the loadSPNtrace() and returns another *type* cpaResults which has all the final statistics about the attack and the recovered keys
+* <code>cpa(attak_round, model_type, cipher_type, \<loaded_trace\>)</code> : This method performs cpa on the *type* returned by the loadSPNtrace() and returns another *type* cpaResults which has all the final statistics about the attack and the recovered keys.
+  * attack_round can be "first" or "last" (user may include his/her own keywords)
+  * model_type can be "HW" or "HD" (user may include his/her own keywords)
+  * cipher_type can be "AES" (or other phrases as more ciphers are included)
 * <code>display_cpa(\<result_type\>)</code>: This function is to display the result of the cpa function, it also creates a direcorty to store all the graphs generatedd and displayed as a result of the attack
 
 ## Installation and Usages
 zypher is not yet included in official julia packages and hence the user will need to clone the repository to use the package, this can be done via julia terminal:
 <code>julia> Pkg.clone("https://github.com/udion/zypher.jl.git")</code>
+
+The following is using the sample trace provided in the trace folder
+```
+julia> using zypher
+julia> data = loadSPNdata("\<path_to_tracefile\>",8)
+julia> res = cpa("first", "HW", "AES", data)
+julia> display_cpa(res)
+```
+The following output is generated also a director with the name of the trace file is created in the same place where the trace file is present, this direcorty has all the graphs plotted as a result of this attack.
+```
+The recovered key is: 000102030405060708090a0b0c0d0e0f
+```
+(16 graphs will appear on the screen which are saved in the newly created director, some of the sample graphs are)
 
 
 
