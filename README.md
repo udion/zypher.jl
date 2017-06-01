@@ -15,8 +15,8 @@ Currently the follwoing methods are provided in the package, (users can extend t
 * <code>display_cpa(\<result_type\>)</code>: This function is to display the result of the cpa function, it also creates a direcorty to store all the graphs generatedd and displayed as a result of the attack
 
 ## Installation and Usages
-zypher is not yet included in official julia packages and hence the user will need to clone the repository to use the package, this can be done via:
-<code>Pkg.clone("https://github.com/udion/zypher.jl.git")</code>
+zypher is not yet included in official julia packages and hence the user will need to clone the repository to use the package, this can be done via julia terminal:
+<code>julia> Pkg.clone("https://github.com/udion/zypher.jl.git")</code>
 
 
 
