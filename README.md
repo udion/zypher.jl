@@ -14,3 +14,5 @@ Currently the follwoing methods are provided in the package, (users can extend t
 * <code>cpa(\<loaded_trace\>)</code> : This method performs cpa on the *type* returned by the loadSPNtrace() and returns another *type* cpaResults which has all the final statistics about the attack and the recovered keys
 * <code>display_cpa(\<result_type\>)</code>: This function is to display the result of the cpa function, it also creates a direcorty to store all the graphs generatedd and displayed as a result of the attack
 
+## Usage Direct example
+
