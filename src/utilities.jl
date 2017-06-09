@@ -27,3 +27,10 @@ function invSlayer(matrixstate)
     mat
 end
 #########################################################
+################## maths functions ######################
+function mvgaussian_pdf(x,μ,Σ)
+  n = length(μ)
+  pre_exp = 1/(det(Σ)*(2*pi)^(n/2))
+  expo = *((x-μ)',inv(Σ),(x-μ))[1]
+  pre_exp*e^(-0.5*expo)
+end
