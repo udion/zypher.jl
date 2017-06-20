@@ -14,8 +14,13 @@ Currently the follwoing methods are provided in the package, (users can extend t
 * <code>cpa(attak_round, model_type, cipher_type, \<loaded_trace\>)</code> : This method performs cpa on the *type* returned by the loadSPNtrace() and returns another *type* cpaResults which has all the final statistics about the attack and the recovered keys.
   * attack_round can be "first" or "last" (user may include his/her own keywords)
   * model_type can be "HW" or "HD" (user may include his/her own keywords)
-  * cipher_type can be "AES" (or other phrases as more ciphers are included)
-* <code>display_cpa(\<result_type\>)</code>: This function is to display the result of the cpa function, it also creates a direcorty to store all the graphs generatedd and displayed as a result of the attack
+  * cipher_type can be "AES" (or other phrases as more SPN ciphers are included)
+* <code>display_cpa(\<result_type\>)</code>: This function is to display the result of the cpa function, it also creates a direcorty to store all the graphs generated and displayed as a result of the attack
+* <code>dpa(attack_round, target_bit, cipher_type, \<loaded_trace\>)</code> : This method performs dpa on the *type* returned by the loadSPNtrace() and returns another *type* dpaResults which has all the final dpa graphs, the grphs are saved in the separate directory which user will be informed about
+  * attack_round can be "first" or "last" (user may include his/her own keywords)
+  * target_bit represent the bit to be used for the selection function in the DPA
+  * cipher_type can be "AES" (or other phrases as more SPN ciphers are included)
+* <code>display_dpa(\<result_type\>)</code>: This function is to display and save the result of the dpa function, it also creates a direcorty to store all the graphs generated
 
 ## Installation and Usages
 zypher is not yet included in official julia packages and hence the user will need to clone the repository to use the package, this can be done via julia terminal:
@@ -37,6 +42,3 @@ The recovered key is: 000102030405060708090a0b0c0d0e0f
 ![alt text](https://github.com/udion/zypher.jl/blob/master/images/max_cc_keyvals_for_byte9.png)
 ![alt text](https://github.com/udion/zypher.jl/blob/master/images/max_cc_keyvals_for_byte13.png)
 ![alt text](https://github.com/udion/zypher.jl/blob/master/images/max_cc_keyvals_for_byte16.png)
-
-
-
