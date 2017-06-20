@@ -18,3 +18,24 @@ function display_cpa(results)
   end
   #can add more functions to manipulate ρ and show details
 end
+
+function display_dpa(results)
+  num_unit = length(results.diff_of_means)
+  for i in 1:num_unit
+    dir = join([results.res_dir, "/byte$(i)"])
+    mkdir(dir)
+    diff_vecs = results.diff_of_means[i]
+    for j in 1:length(diff_vecs)
+      fig = plt.figure()
+      plt.plot(diff_vecs[i])
+      plt.xlim(0,length(diff_vecs[i]))
+      xlabel("time")
+      ylabel("difference mean power")
+      t = "DPA subkey=$(j-1) for byte$(i)"
+      title(t)
+      plt.savefig(join([dir,"/","subkey$(j-1).png"]))
+      plt.close(fig)
+    end
+  end
+  println(join(["The resulting dpa plots are saved at ", results.res_dir]))
+end
