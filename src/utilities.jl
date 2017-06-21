@@ -26,6 +26,23 @@ function invSlayer(matrixstate)
     end
     mat
 end
+function transformToMatrix(IV)
+    matrixIV = zeros(UInt8,4,4)
+    l = length(IV)
+    for i in 2:2:l
+        k = div(i,2)
+        valstr = IV[i-1:i]
+        val = parse(UInt8,valstr,16)
+        if k%4 == 0
+            r = 4
+        else
+            r = k%4
+        end
+        c = trunc(Int8,ceil(k/4))
+        matrixIV[r,c] = val
+    end
+    matrixIV
+end
 #########################################################
 ################## maths functions ######################
 function mvgaussian_pdf(x,μ,Σ)
