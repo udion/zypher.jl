@@ -40,7 +40,7 @@ function loadSPNtrace(path_to_csvtraces, unit_size)
   path_to_resdir = join([path_to_resdir, part_names[end], "results"])
   mkdir(path_to_resdir)
 
-  pct = readtable(path_to_csvtraces)
+  pct = readtable(path_to_csvtraces,header=false)
 
   plaintexts = pct[1]; #all the plaintexts are suppose to be of the same length and in hex string
   ciphertexts = pct[2]; #all the ciphertexts are suppose to be of the same length and in hex string
@@ -69,7 +69,7 @@ function loadTA_TRAINtrace(path_to_csvtraces, unit_size)
   path_to_resdir = join([path_to_resdir, part_names[end], "templates"])
   mkdir(path_to_resdir)
 
-  pct = readtable(path_to_csvtraces)
+  pct = readtable(path_to_csvtraces,header=false)
   num_unit = div(length(pct[1,3])*4, unit_size) #pct[1,3] is a plaintext
 
   #HW creation may be needed in some kind of templates
@@ -116,7 +116,7 @@ function loadTA_TESTtrace(path_to_csvtraces, unit_size)
   path_to_resdir = join([path_to_resdir, part_names[end], "results"])
   mkdir(path_to_resdir)
 
-  pct = readtable(path_to_csvtraces)
+  pct = readtable(path_to_csvtraces,header=false)
 
   plaintexts = pct[1]; #all the plaintexts are suppose to be of the same length and in hex string
   ciphertexts = pct[2]; #all the ciphertexts are suppose to be of the same length and in hex string
