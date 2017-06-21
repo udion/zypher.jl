@@ -48,8 +48,8 @@ function modelmaker(attack_round, model_type, cipher_type, trace_data)
           c = trunc(Int8,ceil(i/4))
 
           for keyGuess in 0:keymax
-            for c in 1:length(ciphertexts)
-              mat_c = transformToMatrix(ciphertexts[c])
+            for ct in 1:length(ciphertexts)
+              mat_c = transformToMatrix(ciphertexts[ct])
               cell = mat_c[r,c]
               xor_val = cell$keyGuess
               b4_sbox = invsbox[xor_val+1]
@@ -58,7 +58,7 @@ function modelmaker(attack_round, model_type, cipher_type, trace_data)
               invr,invc = invShiftRows(r,c)
               actual_byte_index = 4*(invc-1) + invr
 
-              V[actual_byte_index, c, keyGuess+1] = HW[b4_sbox$cell]
+              V[actual_byte_index, ct, keyGuess+1] = HW[b4_sbox$cell]
             end
           end
         end
