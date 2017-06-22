@@ -51,14 +51,15 @@ function modelmaker(attack_round, model_type, cipher_type, trace_data)
             for ct in 1:length(ciphertexts)
               mat_c = transformToMatrix(ciphertexts[ct])
               cell = mat_c[r,c]
-              xor_val = cell$keyGuess
-              b4_sbox = invsbox[xor_val+1]
-
-              #to get the actual byte_index the particular cell corresponds to (before shiftRows)
-              invr,invc = invShiftRows(r,c)
-              actual_byte_index = 4*(invc-1) + invr
-
-              V[actual_byte_index, ct, keyGuess+1] = HW[b4_sbox$cell]
+              #when I am trying to figure out the subkey corresponding to (r,c)
+              #after taking xor with the subkey the value I get(xval) will actually
+              #contribute in the leakage with the (r_,c_) in the cipher matrix such that
+              #(r_,c_)---shifting-->(r,c) during encryption
+              r_,c_ = invShiftRows(r,c)
+              cell_ = mat_c[r_,c_]
+              xval = cell$keyGuess
+              b4_sbox = invsbox[xval+1]
+              V[i, ct, keyGuess+1] = HW[b4_sbox$cell_]
             end
           end
         end
