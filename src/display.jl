@@ -3,7 +3,6 @@ using PyPlot
 plt = PyPlot
 
 function display_cpa(results)
-  println("The recovered key is: ", results.key)
   #to get the keymax, possible key strats from 0
   keymax = length(results.ρ[1,:,1]) - 1
   #to display the graphs for each key unit guessed
@@ -17,6 +16,9 @@ function display_cpa(results)
     plt.savefig(join([results.res_dir, "/max_cc_keyvals_for_byte$(i)"]))
     plt.close(fig)
   end
+  f = open(join([results.res_dir, "/log.txt"]),"w")
+  write(f,join(["The recovered key is: ", results.key]))
+  close(f)
   #can add more functions to manipulate ρ and show details
 end
 
