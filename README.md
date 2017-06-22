@@ -26,19 +26,41 @@ Currently the follwoing methods are provided in the package, (users can extend t
 zypher is not yet included in official julia packages and hence the user will need to clone the repository to use the package, this can be done via julia terminal:
 <code>julia> Pkg.clone("https://github.com/udion/zypher.jl.git")</code>
 
-The following is using the sample trace provided in the trace folder
+The following is using the sample trace provided in the trace folder, It's performing CPA on first round on AES(traces obtained from microcontroller)
 ```
 julia> using zypher
-julia> data = loadSPNdata("\<path_to_tracefile\>",8)
+julia> data = loadSPNtrace("\<path_to_AES_trace_firstround_micro.csv\>",8)
 julia> res = cpa("first", "HW", "AES", data)
 julia> display_cpa(res)
 ```
-The following output is generated also a director with the name of the trace file is created in the same place where the trace file is present, this direcorty has all the graphs plotted as a result of this attack.
+The following output is generated also a directory with the name of the trace file is created in the same place where the trace file is present, this direcorty has all the graphs plotted as a result of this attack and a log.txt file.
 ```
 The recovered key is: 000102030405060708090a0b0c0d0e0f
 ```
-(16 graphs will appear on the screen which are saved in the newly created director, some of the sample graphs are)
-![alt text](https://github.com/udion/zypher.jl/blob/master/images/max_cc_keyvals_for_byte7.png)
-![alt text](https://github.com/udion/zypher.jl/blob/master/images/max_cc_keyvals_for_byte9.png)
-![alt text](https://github.com/udion/zypher.jl/blob/master/images/max_cc_keyvals_for_byte13.png)
-![alt text](https://github.com/udion/zypher.jl/blob/master/images/max_cc_keyvals_for_byte16.png)
+(16 graphs will be saved in the newly created director, some of the sample graphs are)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_micro_cpa/max_cc_keyvals_for_byte7.png)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_micro_cpa/max_cc_keyvals_for_byte9.png)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_micro_cpa/max_cc_keyvals_for_byte13.png)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_micro_cpa/max_cc_keyvals_for_byte16.png)
+
+The following performs CPA on AES on the last round(traces has been obtained from the sasebo gII FPGA board)
+```
+julia> using zypher
+julia> data = loadSPNtrace("\<path_to_AES_trace_fpga.csv\>",8)
+julia> res = cpa("last", "HW", "AES", data)
+julia> display_cpa(res)
+```
+The following output is generated also a directory with the name of the trace file is created in the same place where the trace file is present, this direcorty has all the graphs plotted as a result of this attack and a log.txt file.
+```
+The recovered key is: d014f9a8c9ee2589e13f0cc8b6630ca6
+```
+(16 graphs will be saved in the newly created director, some of the sample graphs are)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_fpga_cpa/max_cc_keyvals_for_byte1.png)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_fpga_cpa/max_cc_keyvals_for_byte2.png)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_fpga_cpa/max_cc_keyvals_for_byte12.png)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_fpga_cpa/max_cc_keyvals_for_byte14.png)
+The recovered key when using with the "last" option refers to the last round key, in the above example the key used for the encryption was **2b7e151628aed2a6abf7158809cf4f3c** and last round key corresponding to this is indeed **d014f9a8c9ee2589e13f0cc8b6630ca6**.
+
+## Notes
+* Make sure that your python environment variable is set to python2 for julia usages as [PyCall](https://github.com/JuliaPy/PyCall.jl) might give error
+* When attacking AES, keep *unitSize* equal to 8(which is equivalent to 1 byte) as for most of the scenarios the inverse and other utilities will be defined considering a byte as smallest unit 
