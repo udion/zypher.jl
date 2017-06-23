@@ -37,13 +37,19 @@ global const invS_box_AES = [
 0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d
 ];
 
+global const S_box_PRESENT = [0xC, 0x5, 0x6, 0xB, 0x9, 0x0, 0xA, 0xD, 0x3, 0xE, 0xF, 0x8, 0x4, 0x7, 0x1, 0x2];
+global const invS_box_PRESENT = [
+0, 16, 32, 48, 1, 17, 33, 49, 2, 18, 34, 50, 3, 19, 35, 51, 4, 20, 36, 52, 5, 21, 37, 53, 6, 22, 38, 54, 7, 23, 39, 55, 8, 24,
+40, 56, 9, 25, 41, 57, 10, 26, 42, 58, 11, 27, 43, 59, 12, 28, 44, 60, 13, 29, 45, 61, 14, 30, 46, 62, 15, 31, 47, 63];
 #add more S-P components here if needed
 global HW = Dict()
 
 global S_boxes = Dict()
 S_boxes["AES"] = S_box_AES
+S_boxes["PRESENT"] = S_box_PRESENT
 #add more as more components are added
 
 global invS_boxes = Dict()
 invS_boxes["AES"] = invS_box_AES
+invS_boxes["PRESENT"] = invS_box_PRESENT
 #add more as more components are added
