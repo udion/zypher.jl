@@ -1,12 +1,13 @@
 include("loadtrace.jl")
 
 #this will basically use the template to figure out the keys
-function ta(templates, trace_data)
+function ta(templates, trace_data, cipher_type)
   unit_size = trace_data.unit_size
   num_unit = trace_data.num_unit
   plaintexts = trace_data.plaintexts
   traces = trace_data.traces
   res_dir = trace_data.res_dir
+  sbox = S_boxes[cipher_type]
 
   pt_unit = div(num_unit,unit_size)
 

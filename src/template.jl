@@ -11,7 +11,7 @@ end
 #the semiinal work on template attacks user may add different functions
 #to make template in different manner
 #this function takes in the output of loadTA_TRAINtrace which is array of TA_TRAINdata type
-function buildTemplates(data)
+function buildTemplates(data,cipher_type)
   unit_size = data.unit_size
   num_unit = data.num_unit
   plaintexts = data.plaintexts
@@ -19,6 +19,7 @@ function buildTemplates(data)
   keys = data.keys
   traces = data.traces
   res_dir = data.res_dir
+  sbox = S_boxes[cipher_type]
 
   pt_unit = div(num_unit,unit_size)
 
