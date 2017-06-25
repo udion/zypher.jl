@@ -11,7 +11,7 @@ The structure is designed in an intuitive manner which may be extended and custo
 ## API
 Currently the follwoing methods are provided in the package, (users can extend this list to include their own methods):
 * <code>loadSPNtrace("\<path_to_file\>", unitSize)</code> : This method is to load the traces corresponding to cipher which is a S-P Network like PRESENT, AES, etc. the unitSize refers to the number of bits which are to be calculated/guessed at a time. This method returns a *type* SPNdata which has the necessary information
-* <code>cpa(attak_round, model_type, cipher_type, \<loaded_trace\>)</code> : This method performs cpa on the *type* returned by the loadSPNtrace() and returns another *type* cpaResults which has all the final statistics about the attack and the recovered keys.
+* <code>cpa(attak_round, model_type, cipher_type, \<loaded_trace\>)</code> : This method performs cpa on the *type* returned by the loadSPNtrace() and returns another *type* cpaResults which has all the final statistics about the attack and the recovered keys
   * attack_round can be "first" or "last" (user may include his/her own keywords)
   * model_type can be "HW" or "HD" (user may include his/her own keywords)
   * cipher_type can be "AES" (or other phrases as more SPN ciphers are included)
@@ -21,6 +21,14 @@ Currently the follwoing methods are provided in the package, (users can extend t
   * target_bit represent the bit to be used for the selection function in the DPA
   * cipher_type can be "AES" (or other phrases as more SPN ciphers are included)
 * <code>display_dpa(\<result_type\>)</code>: This function is to display and save the result of the dpa function, it also creates a direcorty to store all the graphs generated
+* <code>loadTA_TRAINtrace("\<path to file\>", unitSize)</code> : This method takes the absolute path to the trace which can be used to build templates which will later be used to recover the key from new traces. The format of the traces for building template is as follows:
+  * First column is plaintexts
+  * Second column is of ciphertexts *(it's need depends upon the type of template one is building)*
+  * Third colum is of keys used for encryption
+* <code>loadTA_TESTtrace("\<path to file\>", unitSize)</code> : This method is to load the traces on which the template attack is to be performed. Since these are being attacked they don't have the column for keys, and the format is same as the SPN traces
+* <code>buildTemplates(\<loaded_data\>, cipher_type)</code> : This takes the result of loadTA_TRAINtrace and the type of cipher which is being attacked (to load the appropriate sbox and other compnents) to build the templates for the template attacks, the templates created are for the **HW**(Hamming weight model, one may write other functions to build other kinds of templates)
+* <code>ta(templates, \<loaded_data\>, unitSize)</code> : This method takes the result of the buildTemplates and the data which is needed to be attacked and the unitSize and returns the result of the attack
+* <code>display_ta(\<result_ta\>)</code> : This methods takes the return value of the ```ta()``` and produces the log file and the appropriate graphs in a reult directory
 
 ## Installation and Usages
 zypher is not yet included in official julia packages and hence the user will need to clone the repository to use the package, this can be done via julia terminal:
@@ -63,4 +71,4 @@ The recovered key when using with the "last" option refers to the last round key
 
 ## Notes
 * Make sure that your python environment variable is set to python2 for julia usages as [PyCall](https://github.com/JuliaPy/PyCall.jl) might give error
-* When attacking AES, keep *unitSize* equal to 8(which is equivalent to 1 byte) as for most of the scenarios the inverse and other utilities will be defined considering a byte as smallest unit 
+* When attacking AES, keep *unitSize* equal to 8(which is equivalent to 1 byte) as for most of the scenarios the inverse and other utilities will be defined considering a byte as smallest unit
