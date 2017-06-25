@@ -1,5 +1,11 @@
 include("loadtrace.jl")
 
+type taResults
+  recovered_key::String
+  templates::Array
+  res_dir::String
+end
+
 #this will basically use the template to figure out the keys
 function ta(templates, trace_data, cipher_type)
   unit_size = trace_data.unit_size
@@ -37,5 +43,5 @@ function ta(templates, trace_data, cipher_type)
   for v in res_key_num
     recovered_key = join([recovered_key,hex(v,2)])
   end
-  return recovered_key
+  return taResults(recovered_key, templates, res_dir)
 end
