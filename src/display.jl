@@ -19,6 +19,7 @@ function display_cpa(results)
   f = open(join([results.res_dir, "/log.txt"]),"w")
   write(f,join(["The recovered key is: ", results.key]))
   close(f)
+  println(join(["The resulting cpa plots are saved at ", results.res_dir]))
   #can add more functions to manipulate ρ and show details
 end
 
@@ -36,9 +37,33 @@ function display_dpa(results)
       ylabel("difference mean power")
       t = "DPA subkey=$(j-1) for byte$(i)"
       title(t)
-      plt.savefig(join([dir,"/","subkey$(j-1).png"]))
+      plt.savefig(join([dir,"/subkey$(j-1).png"]))
       plt.close(fig)
     end
   end
   println(join(["The resulting dpa plots are saved at ", results.res_dir]))
+end
+
+function display_ta(results)
+  num_unit = length(results.templates)
+  f = open(join([results.res_dir, "/log.txt"]), "w")
+  write(f, join(["The recoverd key: ", results.recovered_key, "\n\n"]))
+
+  for i in 1:num_unit
+    template = templates[i]
+    write(f,"_____________________\n")
+    write(f,"byte$(results.ths_unit)\n")
+    write(f,"POI: ")
+    write(f, join(map(string,template.POI)))
+    write(f,"\n\n")
+
+    fig = plt.figure()
+    plt.plot(templates.tempSumDiff)
+    xlabel("time")
+    ylabel("sum of diff of means trace")
+    title("sum of diff of means for byte=$(i)")
+    plt.savefig(join([results.res_dir, "/sumdiffmean_$(i)"]))
+    plt.close(fig)
+  end
+  println(join(["The results of TA are saved at ", results.res_dir]))
 end
