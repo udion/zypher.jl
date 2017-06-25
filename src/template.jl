@@ -3,6 +3,7 @@ include("loadtrace.jl")
 type template
   this_unit::Int
   classMeans::Array
+  tempSumDiff::Array
   POI::Array
   classMeanCov::Array
 end
@@ -59,7 +60,8 @@ function buildTemplates(data,cipher_type)
       for i in 0:unit_size
           tempMeans[i] = mean(tempClass[i])
       end
-      POI = get_pois(tempMeans)
+      POI = get_pois(tempMeans)[1]
+      tempSumDiff = get_pois(tempMeans)[2]
       #now for each class I want to build a multivariate model for which
       #I need to define the mean vector and the covariance matrix
       tempMeanCov = Dict()
@@ -81,7 +83,7 @@ function buildTemplates(data,cipher_type)
           end
           tempMeanCov[i] = [meanvec, covmat]
       end
-      push!(templates,template(byte_n, tempMeans, POI, tempMeanCov))
+      push!(templates,template(byte_n, tempMeans, tempSumDiff, POI, tempMeanCov))
   end
   #might wanna write it down in JLD file
   return templates
@@ -97,7 +99,7 @@ function get_pois(tempMeans)
     #now i need to find some POI's from tempSumDiff
     n_pois = 10
     poi_spacing = 5
-
+    tempSumDiff_copy = tempSumDiff
     POI = []
     for i in 1:n_pois
         nextPoi = indmax(tempSumDiff)
@@ -109,5 +111,5 @@ function get_pois(tempMeans)
         end
     end
 
-    return POI
+    return [POI, tempSumDiff_copy]
 end
