@@ -45,7 +45,7 @@ The following output is generated also a directory with the name of the trace fi
 ```
 The recovered key is: 000102030405060708090a0b0c0d0e0f
 ```
-(16 graphs will be saved in the newly created director, some of the sample graphs are)
+(16 graphs will be saved in the newly created directory, some of the sample graphs are)
 ![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_micro_cpa/max_cc_keyvals_for_byte7.png)
 ![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_micro_cpa/max_cc_keyvals_for_byte9.png)
 ![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_micro_cpa/max_cc_keyvals_for_byte13.png)
@@ -62,7 +62,7 @@ The following output is generated also a directory with the name of the trace fi
 ```
 The recovered key is: d014f9a8c9ee2589e13f0cc8b6630ca6
 ```
-(16 graphs will be saved in the newly created director, some of the sample graphs are)
+(16 graphs will be saved in the newly created directory, some of the sample graphs are)
 ![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_fpga_cpa/max_cc_keyvals_for_byte1.png)
 ![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_fpga_cpa/max_cc_keyvals_for_byte2.png)
 ![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_fpga_cpa/max_cc_keyvals_for_byte12.png)
