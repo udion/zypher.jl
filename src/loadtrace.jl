@@ -15,9 +15,8 @@ type TA_TRAINdata
   num_unit::Int
   plaintexts::Array
   ciphertexts::Array
+  keys::Array
   traces::Array
-  this_unit::Int
-  this_subkey::Int
   res_dir::String
 end
 
@@ -77,29 +76,14 @@ function loadTA_TRAINtrace(path_to_csvtraces, unit_size)
     HW[i] = hw_look_up_maker(bin(i,unit_size))
   end
 
-  #the return array which will return the final datatypes
-  ret = TA_TRAINdata[]
+  plaintexts = pct[1]
+  ciphertexts = pct[2]
+  keys = pct[3]
+  traces = Array(pct[:,4:end])
+  num_unit = div(length(plaintexts[1])*4, unit_size)
 
-  #now I need to group data by different unit numbers
-  grouped_data = groupby(pct, 1) #this should give 16 groups for AES-128 8bit size
-
-  for g in grouped_data
-    #now I need to group data by different subkeys
-    g_subkeys = groupby(g,2) #this should give 256 groups for AES-128 8bit size
-
-    for gs in g_subkeys
-      this_unit = gs[1,1]
-      this_subkey = gs[1,2]
-      plaintexts = gs[3]
-      ciphertexts = gs[4]
-      traces = Array(gs[:,5:end])
-      x = TA_TRAINdata(unit_size, num_unit, plaintexts, ciphertexts, traces, this_unit, this_subkey, path_to_resdir)
-      push!(ret, x)
-    end
-  end
-  ret
+  return TA_TRAINdata(unit_size, num_unit, plaintexts, ciphertexts, keys, path_to_resdir)
 end
-
 
 function loadTA_TESTtrace(path_to_csvtraces, unit_size)
   #for the testing case the traces need not have plaintexts and ciphertexts
@@ -128,5 +112,5 @@ function loadTA_TESTtrace(path_to_csvtraces, unit_size)
     HW[i] = hw_look_up_maker(bin(i,unit_size))
   end
 
-  x = TA_TESTdata(unit_size,num_unit,plaintexts,ciphertexts,traces,path_to_resdir)
+  return TA_TESTdata(unit_size,num_unit,plaintexts,ciphertexts,traces,path_to_resdir)
 end
