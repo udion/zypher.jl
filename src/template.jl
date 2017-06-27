@@ -2,10 +2,10 @@ include("loadtrace.jl")
 
 type template
   this_unit::Int
-  classMeans::Array
+  classMeans::Dict
   tempSumDiff::Array
   POI::Array
-  classMeanCov::Array
+  classMeanCovs::Dict
 end
 
 #this function constructs templates in a standard manner as presented in
@@ -60,8 +60,8 @@ function buildTemplates(data,cipher_type)
       for i in 0:unit_size
           tempMeans[i] = mean(tempClass[i])
       end
-      POI = get_pois(tempMeans)[1]
-      tempSumDiff = get_pois(tempMeans)[2]
+      POI = get_pois(tempMeans, unit_size)[1]
+      tempSumDiff = get_pois(tempMeans, unit_size)[2]
       #now for each class I want to build a multivariate model for which
       #I need to define the mean vector and the covariance matrix
       tempMeanCov = Dict()
@@ -89,7 +89,7 @@ function buildTemplates(data,cipher_type)
   return templates
 end
 
-function get_pois(tempMeans)
+function get_pois(tempMeans, unit_size)
     tempSumDiff = zeros(length(tempMeans[0]))
     for i in 0:unit_size
         for j in i+1:unit_size
