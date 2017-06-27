@@ -69,7 +69,6 @@ function loadTA_TRAINtrace(path_to_csvtraces, unit_size)
   mkdir(path_to_resdir)
 
   pct = readtable(path_to_csvtraces,header=false)
-  num_unit = div(length(pct[1,3])*4, unit_size) #pct[1,3] is a plaintext
 
   #HW creation may be needed in some kind of templates
   for i in 0:2^unit_size-1
@@ -80,9 +79,11 @@ function loadTA_TRAINtrace(path_to_csvtraces, unit_size)
   ciphertexts = pct[2]
   keys = pct[3]
   traces = Array(pct[:,4:end])
+  println("dbg: plaintexts[1] is: ",plaintexts[1])
+  println("dbg: length(plaintexts[1)] is: ",length(plaintexts[1]))
   num_unit = div(length(plaintexts[1])*4, unit_size)
 
-  return TA_TRAINdata(unit_size, num_unit, plaintexts, ciphertexts, keys, path_to_resdir)
+  return TA_TRAINdata(unit_size, num_unit, plaintexts, ciphertexts, keys, traces, path_to_resdir)
 end
 
 function loadTA_TESTtrace(path_to_csvtraces, unit_size)
