@@ -1,4 +1,4 @@
-include("loadtrace.jl")
+include("template.jl")
 
 type taResults
   recovered_key::String
@@ -22,16 +22,16 @@ function ta(templates, trace_data, cipher_type)
   for byte_n in 1:num_unit
     #res[k] contains the score of the subkey k
     res = zeros(2^unit_size)
-    classMeans = templates[byte_n].classMean
-    classMeanCovs = templates[byte_n].classMeanCov
-    POI = templates.POI
+    classMeans = templates[byte_n].classMeans
+    classMeanCovs = templates[byte_n].classMeanCovs
+    POI = templates[byte_n].POI
     for sk in 0:2^unit_size-1
       for p in 1:length(plaintexts)
-        p_byte = parse(Int,plaintexts[p][(byte_n-1)*pt_unit+1:(byte_n-1)*pt_unit+2])
+        p_byte = parse(Int,plaintexts[p][(byte_n-1)*pt_unit+1:(byte_n-1)*pt_unit+2],16)
         hw = HW[sbox[(p_byte$sk)+1]]
-        μ = classMeans[hw]
-        Σ = classMeanCov[hw]
-        pdf_val = mvgaussian_pdf(traces[p][POI], μ, Σ)
+        μ = classMeanCovs[hw][1]
+        Σ = classMeanCovs[hw][2]
+        pdf_val = mvgaussian_pdf(traces[p,:][POI], μ, Σ)
         res[sk+1] += log(pdf_val)
       end
     end
