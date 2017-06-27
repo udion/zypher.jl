@@ -1,4 +1,6 @@
 include("cpa.jl")
+include("dpa.jl")
+include("ta.jl")
 using PyPlot
 plt = PyPlot
 
@@ -46,24 +48,28 @@ end
 
 function display_ta(results)
   num_unit = length(results.templates)
+  templates = results.templates
   f = open(join([results.res_dir, "/log.txt"]), "w")
   write(f, join(["The recoverd key: ", results.recovered_key, "\n\n"]))
 
   for i in 1:num_unit
     template = templates[i]
     write(f,"_____________________\n")
-    write(f,"byte$(results.ths_unit)\n")
+    write(f,"byte$(template.this_unit)\n")
     write(f,"POI: ")
-    write(f, join(map(string,template.POI)))
+    for point in map(string,template.POI)
+      write(f,join([point, " "]))
+    end
     write(f,"\n\n")
 
     fig = plt.figure()
-    plt.plot(templates.tempSumDiff)
+    plt.plot(template.tempSumDiff)
     xlabel("time")
     ylabel("sum of diff of means trace")
     title("sum of diff of means for byte=$(i)")
     plt.savefig(join([results.res_dir, "/sumdiffmean_$(i)"]))
     plt.close(fig)
   end
+  close(f)
   println(join(["The results of TA are saved at ", results.res_dir]))
 end
