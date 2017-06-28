@@ -69,6 +69,15 @@ The recovered key is: d014f9a8c9ee2589e13f0cc8b6630ca6
 ![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_fpga_cpa/max_cc_keyvals_for_byte14.png)
 The recovered key when using with the "last" option refers to the last round key, in the above example the key used for the encryption was **2b7e151628aed2a6abf7158809cf4f3c** and last round key corresponding to this is indeed **d014f9a8c9ee2589e13f0cc8b6630ca6**.
 
+The following are the results of the Template attack perform on AES traces (traces not uploaded, big file!)
+```
+julia> d_train = loadTA_TRAINtrace("path_to_training_csv_file",8);
+julia> templates = buildTemplates(d_train, "AES");
+julia> d_test = loadTA_TESTtrace("path_to_attack_trace",8);
+julia> res = ta(templates, d_test, "AES");
+julia> display_ta(res);
+```
+The following log.txt file and 16 graphs representing the sum of different of means (for POI selection) will be saved in the directory in which the test csv file was present 
 ## Notes
 * Make sure that your python environment variable is set to python2 for julia usages as [PyCall](https://github.com/JuliaPy/PyCall.jl) might give error
 * When attacking AES, keep *unitSize* equal to 8(which is equivalent to 1 byte) as for most of the scenarios the inverse and other utilities will be defined considering a byte as smallest unit
