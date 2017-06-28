@@ -77,7 +77,80 @@ julia> d_test = loadTA_TESTtrace("path_to_attack_trace",8);
 julia> res = ta(templates, d_test, "AES");
 julia> display_ta(res);
 ```
-The following log.txt file and 16 graphs representing the sum of different of means (for POI selection) will be saved in the directory in which the test csv file was present 
+The following log.txt file and 16 graphs representing the sum of different of means (for POI selection) will be saved in the directory in which the test csv file was present
+```
+The recoverd key: 489db4b3f3172961cc2bcb4ed2e28eb7
+
+_____________________
+byte1
+POI: 2322 2311 2329 2335 2341 2304 905 2298 2347 916 
+
+_____________________
+byte2
+POI: 4134 2428 2417 4122 2435 4709 4140 2441 4128 4721 
+
+_____________________
+byte3
+POI: 4965 2535 2523 4953 2541 4971 2529 4959 2547 4977 
+
+_____________________
+byte4
+POI: 2641 2630 2647 2653 2659 1111 2616 2665 2622 1122 
+
+_____________________
+byte5
+POI: 2747 2736 2753 2759 2765 1180 2728 2771 2722 2716 
+
+_____________________
+byte6
+POI: 2853 2842 4184 4359 2860 2866 4172 4190 4365 4346 
+
+_____________________
+byte7
+POI: 2960 2948 2966 2972 2954 2978 2935 2941 2984 1317 
+
+_____________________
+byte8
+POI: 3066 3054 3072 3060 3078 3084 3041 3047 1386 3090 
+
+_____________________
+byte9
+POI: 3172 3160 3178 3166 3184 3190 3147 3153 1455 3196 
+
+_____________________
+byte10
+POI: 3278 3267 4234 4222 3285 4472 3291 4240 4259 4765 
+
+_____________________
+byte11
+POI: 3384 3373 3390 3396 3402 3366 3360 3408 3428 3354 
+
+_____________________
+byte12
+POI: 3491 3479 3497 3485 3503 3509 3466 3472 3460 1661 
+
+_____________________
+byte13
+POI: 3597 3585 3603 3609 3591 3615 1731 3621 3572 3578 
+
+_____________________
+byte14
+POI: 3703 3692 4285 3709 4590 3715 4291 4865 4596 4858 
+
+_____________________
+byte15
+POI: 3809 3798 3816 3822 3828 1867 3784 3790 3834 1878 
+
+_____________________
+byte16
+POI: 3915 3904 3922 3928 3934 4009 1936 3897 3940 3891 
+```
+(16 graphs will be saved in the newly created directory, some of the sample graphs are)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_micro_ta/sumdiffmean_12.png)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_micro_ta/sumdiffmean_14.png)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_micro_ta/sumdiffmean_2.png)
+![alt text](https://github.com/udion/zypher.jl/blob/master/images/AES_micro_ta/sumdiffmean_3.png)
+
 ## Notes
 * Make sure that your python environment variable is set to python2 for julia usages as [PyCall](https://github.com/JuliaPy/PyCall.jl) might give error
 * When attacking AES, keep *unitSize* equal to 8(which is equivalent to 1 byte) as for most of the scenarios the inverse and other utilities will be defined considering a byte as smallest unit
